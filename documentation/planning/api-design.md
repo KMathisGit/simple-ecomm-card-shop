@@ -62,7 +62,6 @@ type Card {
   imageUrl: String!
   rarity: String!
   set: String!
-  series: String
   cardNumber: String
   description: String
   
@@ -146,7 +145,6 @@ type ShippingAddress {
 input CardFilters {
   search: String
   set: String
-  series: String
   rarity: String
   minPrice: Decimal
   maxPrice: Decimal
@@ -178,7 +176,6 @@ input CreateCardInput {
   imageUrl: String!
   rarity: String!
   set: String!
-  series: String
   cardNumber: String
   description: String
   inventory: [CardInventoryInput!]!
@@ -195,7 +192,6 @@ input UpdateCardInput {
   imageUrl: String
   rarity: String
   set: String
-  series: String
   cardNumber: String
   description: String
 }
@@ -241,7 +237,6 @@ type Query {
   
   # Get unique sets for filtering
   availableSets: [String!]!
-  availableSeries: [String!]!
   
   # Order queries
   order(id: ID!): Order
@@ -380,16 +375,6 @@ export const Query = {
     return sets.map((s) => s.set)
   },
 
-  availableSeries: async () => {
-    const series = await prisma.card.findMany({
-      select: { series: true },
-      where: { series: { not: null } },
-      distinct: ['series'],
-      orderBy: { series: 'asc' },
-    })
-    return series.map((s) => s.series).filter(Boolean)
-  },
-
   myOrders: async (_: any, { pagination }: any, context: Context) => {
     if (!context.user) {
       throw new GraphQLError('Not authenticated', {
@@ -457,7 +442,6 @@ export const Mutation = {
         imageUrl: input.imageUrl,
         rarity: input.rarity,
         set: input.set,
-        series: input.series,
         cardNumber: input.cardNumber,
         description: input.description,
         inventoryItems: {
@@ -639,10 +623,6 @@ function buildCardWhereClause(filters?: CardFilters) {
 
   if (filters?.set) {
     where.set = filters.set
-  }
-
-  if (filters?.series) {
-    where.series = filters.series
   }
 
   if (filters?.rarity) {

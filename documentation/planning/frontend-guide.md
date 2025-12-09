@@ -468,15 +468,13 @@ import { formatPrice } from '@/lib/utils/format'
 
 interface SearchFiltersProps {
   availableSets: string[]
-  availableSeries: string[]
 }
 
-export function SearchFilters({ availableSets, availableSeries }: SearchFiltersProps) {
+export function SearchFilters({ availableSets }: SearchFiltersProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const [set, setSet] = useState(searchParams.get('set') || '')
-  const [series, setSeries] = useState(searchParams.get('series') || '')
   const [condition, setCondition] = useState(searchParams.get('condition') || '')
   const [priceRange, setPriceRange] = useState([0, 1000])
 
@@ -485,9 +483,6 @@ export function SearchFilters({ availableSets, availableSeries }: SearchFiltersP
     
     if (set) params.set('set', set)
     else params.delete('set')
-    
-    if (series) params.set('series', series)
-    else params.delete('series')
     
     if (condition) params.set('condition', condition)
     else params.delete('condition')
@@ -500,7 +495,6 @@ export function SearchFilters({ availableSets, availableSeries }: SearchFiltersP
 
   const clearFilters = () => {
     setSet('')
-    setSeries('')
     setCondition('')
     setPriceRange([0, 1000])
     router.push('/search')
@@ -517,21 +511,6 @@ export function SearchFilters({ availableSets, availableSeries }: SearchFiltersP
           <SelectContent>
             <SelectItem value="">All Sets</SelectItem>
             {availableSets.map((s) => (
-              <SelectItem key={s} value={s}>{s}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div>
-        <Label>Series</Label>
-        <Select value={series} onValueChange={setSeries}>
-          <SelectTrigger>
-            <SelectValue placeholder="All Series" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="">All Series</SelectItem>
-            {availableSeries.map((s) => (
               <SelectItem key={s} value={s}>{s}</SelectItem>
             ))}
           </SelectContent>

@@ -10,7 +10,7 @@ A simple e-commerce web application for buying and selling Pokémon cards. The p
 
 - **Product Catalog**: Browse Pokémon cards with images and basic information
 - **Search**: Find cards by name (e.g., "Pikachu", "Charizard")
-- **Filtering**: Filter results by price range, set/series, and condition
+- **Filtering**: Filter results by price range, set, and condition
 - **Product Details**: View detailed card information with condition-based pricing
 - **Shopping Cart**: Add/remove items, update quantities (stored in local storage)
 
@@ -35,7 +35,7 @@ Each Pokémon card includes:
 - **Name**: Card name (e.g., "Pikachu")
 - **Image**: Product image (stored locally)
 - **Rarity**: Card rarity level
-- **Set/Series**: Which Pokémon card set the card belongs to
+- **Set**: Which Pokémon card set the card belongs to
 - **Conditions**: Multiple condition variants per card (Mint, Near Mint, Excellent, Good, etc.)
 - **Price**: Condition-dependent pricing
 - **Quantity**: Stock count per condition

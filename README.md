@@ -176,12 +176,6 @@ npx prisma studio    # Open database GUI
 npx prisma migrate   # Run database migrations
 ```
 
-## 🚧 Roadmap
-
-- [ ] Advanced admin analytics
-- [ ] Bulk card import/export
-- [ ] Image upload functionality
-- [ ] Real payment integration (Stripe)
 
 ## 📄 License
 

@@ -96,7 +96,6 @@ model Card {
   imageUrl    String
   rarity      String
   set         String   // e.g., "Base Set", "Jungle", "Fossil"
-  series      String?  // e.g., "Original Series", "Sun & Moon"
   cardNumber  String?  // Card number in set (e.g., "25/102")
   description String?
   createdAt   DateTime @default(now())
@@ -316,7 +315,6 @@ async function main() {
       imageUrl: '/images/cards/pikachu-base.png',
       rarity: 'Common',
       set: 'Base Set',
-      series: 'Original Series',
       cardNumber: '58/102',
       inventoryItems: {
         create: [
@@ -334,7 +332,6 @@ async function main() {
       imageUrl: '/images/cards/charizard-base.png',
       rarity: 'Holo Rare',
       set: 'Base Set',
-      series: 'Original Series',
       cardNumber: '4/102',
       inventoryItems: {
         create: [

@@ -201,7 +201,7 @@ src/
 - [ ] Create SearchBar component
 - [ ] Implement SearchFilters component
 - [ ] Create search results page
-- [ ] Add filter logic (set, series, condition, price)
+- [ ] Add filter logic (set, condition, price)
 - [ ] Implement search query handling
 
 **Files to create:**
