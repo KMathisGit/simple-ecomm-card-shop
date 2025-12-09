@@ -27,7 +27,7 @@ This project is an **educational demonstration** of building a complete e-commer
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Next.js 15** - React framework with App Router
+- **Next.js 16** - React framework with App Router
 - **TypeScript** - Type-safe development
 - **Shadcn/UI** - Accessible component library built on Radix UI
 - **Tailwind CSS** - Utility-first CSS framework
