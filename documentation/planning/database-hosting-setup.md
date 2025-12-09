@@ -7,6 +7,7 @@ This guide walks you through setting up PostgreSQL database hosting for your Pok
 ## Recommended Setup: Neon
 
 ### Why Neon?
+
 - **Best free tier**: 0.5 GB storage, 3 GB data transfer/month
 - **Serverless**: Automatic scaling and sleep when inactive
 - **Branching**: Create database branches like Git branches
@@ -34,10 +35,13 @@ This guide walks you through setting up PostgreSQL database hosting for your Pok
 
 1. After project creation, you'll see connection details
 2. Copy the connection string (looks like):
+
    ```
    postgresql://username:password@ep-xxxx.us-east-2.aws.neon.tech/neondb?sslmode=require
    ```
+
 3. Add to your `.env.local`:
+
    ```bash
    DATABASE_URL="postgresql://username:password@ep-xxxx.us-east-2.aws.neon.tech/neondb?sslmode=require"
    ```
@@ -98,6 +102,7 @@ vercel link
 #### 3. Get Connection Strings
 
 Vercel provides multiple connection strings:
+
 - `POSTGRES_URL` - Direct connection (for Prisma)
 - `POSTGRES_URL_NON_POOLING` - Non-pooled (for migrations)
 - `POSTGRES_PRISMA_URL` - Optimized for Prisma
@@ -148,6 +153,7 @@ vercel env pull .env.local
 4. Copy connection string
 5. Replace `[YOUR-PASSWORD]` with your database password
 6. Add to `.env.local`:
+
    ```bash
    DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.xxx.supabase.co:5432/postgres"
    ```
@@ -157,6 +163,7 @@ vercel env pull .env.local
 1. In Supabase dashboard, go to Database → Connection Pooling
 2. Enable connection pooling
 3. Use the pooled connection string for production:
+
    ```bash
    DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.xxx.supabase.co:6543/postgres?pgbouncer=true"
    ```
@@ -164,6 +171,7 @@ vercel env pull .env.local
 ### Supabase Extras
 
 Supabase includes features you might use later:
+
 - **Auth**: User authentication (we use NextAuth, but you could switch)
 - **Storage**: File storage for card images
 - **Realtime**: Live data updates
@@ -191,6 +199,7 @@ Supabase includes features you might use later:
 2. Go to "Connect" tab
 3. Copy "Postgres Connection URL"
 4. Add to `.env.local`:
+
    ```bash
    DATABASE_URL="postgresql://postgres:password@containers-xxx.railway.app:7432/railway"
    ```
@@ -271,6 +280,7 @@ DATABASE_URL="postgresql://postgres:password@localhost:5432/pokemon_cards"
 For production, always use connection pooling:
 
 **With Prisma + Neon/Supabase:**
+
 ```prisma
 datasource db {
   provider = "postgresql"
@@ -309,17 +319,20 @@ DATABASE_URL="postgresql://user:pass@host:5432/db?sslmode=require"
 ### Development to Production
 
 1. **Test migrations locally:**
+
    ```bash
    npx prisma migrate dev
    ```
 
 2. **Deploy migration to production:**
+
    ```bash
    # Set production DATABASE_URL
    npx prisma migrate deploy
    ```
 
 3. **Seed production database:**
+
    ```bash
    npx prisma db seed
    ```
@@ -382,14 +395,17 @@ psql DATABASE_URL < backup.sql
 ## Recommended Setup Path
 
 ### Phase 1: Development (Week 1-6)
+
 - **Use**: Local PostgreSQL or Neon free tier
 - **Why**: Fast iteration, no cost concerns
 
 ### Phase 2: Staging/Testing (Week 7)
+
 - **Use**: Neon branch or separate Neon project
 - **Why**: Test migrations before production
 
 ### Phase 3: Production (Week 8+)
+
 - **Use**: Neon paid plan or Vercel Postgres
 - **Why**: Reliable, scalable, monitored
 

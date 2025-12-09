@@ -79,6 +79,7 @@ GOOGLE_CLIENT_SECRET="your-google-client-secret"
 ## Database Schema Quick Reference
 
 ### Main Tables
+
 - **users**: User accounts with roles (CUSTOMER, ADMIN)
 - **cards**: Base Pokémon card information
 - **card_inventory**: Condition variants with price and quantity
@@ -86,6 +87,7 @@ GOOGLE_CLIENT_SECRET="your-google-client-secret"
 - **order_items**: Order line items
 
 ### Key Relationship
+
 `Card (1) → (Many) CardInventory (Many) → (Many) OrderItem`
 
 ## GraphQL API Endpoints
@@ -207,16 +209,19 @@ const { data, loading, error } = useQuery(GET_CARDS, {
 ## Routing Structure
 
 ### Public Routes
+
 - `/` - Homepage/landing
 - `/search` - Search results
 - `/cards/[id]` - Product detail
 
 ### Protected Routes (Auth Required)
+
 - `/checkout` - Checkout page
 - `/orders` - Order history
 - `/orders/[id]` - Order detail
 
 ### Admin Routes (Admin Role Required)
+
 - `/admin` - Dashboard
 - `/admin/cards` - Card management
 - `/admin/orders` - Order management
@@ -224,18 +229,22 @@ const { data, loading, error } = useQuery(GET_CARDS, {
 ## Common Patterns
 
 ### Condition-Based Pricing
+
 Each card has multiple inventory items (conditions):
+
 - Each condition has separate price and quantity
 - Users select condition on product page
 - Cart stores cardInventoryId (not just cardId)
 
 ### Cart Persistence
+
 - Cart stored in localStorage via Zustand
 - Persists across page refreshes
 - Preserved during login flow
 - Cleared on logout
 
 ### Inventory Management
+
 - Inventory decremented atomically in transaction
 - Stock checked before order creation
 - Admin can update quantities per condition
@@ -243,6 +252,7 @@ Each card has multiple inventory items (conditions):
 ## Common Issues & Solutions
 
 ### Issue: Database connection failed
+
 ```bash
 # Check PostgreSQL is running
 # Verify DATABASE_URL in .env.local
@@ -250,6 +260,7 @@ Each card has multiple inventory items (conditions):
 ```
 
 ### Issue: Google OAuth not working
+
 ```bash
 # Verify redirect URIs match exactly
 # Check GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET
@@ -257,6 +268,7 @@ Each card has multiple inventory items (conditions):
 ```
 
 ### Issue: Cart not persisting
+
 ```bash
 # Check Zustand persist middleware
 # Verify localStorage is enabled
@@ -266,12 +278,14 @@ Each card has multiple inventory items (conditions):
 ## File Locations
 
 ### Configuration Files
+
 - `prisma/schema.prisma` - Database schema
 - `src/lib/auth.ts` - Authentication config
 - `src/lib/graphql/schema.ts` - GraphQL schema
 - `tailwind.config.js` - Tailwind configuration
 
 ### Important Components
+
 - `src/lib/stores/cart.ts` - Cart state management
 - `src/components/product/ConditionSelector.tsx` - Condition picker
 - `src/components/cart/CartDrawer.tsx` - Cart UI
@@ -280,6 +294,7 @@ Each card has multiple inventory items (conditions):
 ## Testing Checklist
 
 ### User Flow
+
 - [ ] Browse products as anonymous user
 - [ ] Search and filter products
 - [ ] Add items to cart
@@ -292,6 +307,7 @@ Each card has multiple inventory items (conditions):
 - [ ] Logout (cart cleared)
 
 ### Admin Flow
+
 - [ ] Login as admin
 - [ ] Access admin panel
 - [ ] Create new card with conditions

@@ -1,6 +1,8 @@
 # Pokémon Card E-Commerce Store
 
-A modern, full-stack e-commerce web application for Pokémon cards. Built with Next.js 15, TypeScript, GraphQL, and PostgreSQL.
+A modern, full-stack e-commerce web application for Pokémon cards. Built with Next.js 16, TypeScript, GraphQL, and PostgreSQL.
+
+**Note**: This is a demonstration project. The checkout process is mocked and does not include real payment processing.
 
 ## 🎯 Project Purpose
 
@@ -27,7 +29,7 @@ This project is an **educational demonstration** of building a complete e-commer
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Next.js 15** - React framework with App Router
+- **Next.js 16** - React framework with App Router
 - **TypeScript** - Type-safe development
 - **Shadcn/UI** - Accessible component library built on Radix UI
 - **Tailwind CSS** - Utility-first CSS framework
@@ -176,9 +178,6 @@ npx prisma migrate   # Run database migrations
 
 ## 🚧 Roadmap
 
-- [ ] Email notifications for orders
-- [ ] Product reviews and ratings
-- [ ] Wishlist functionality
 - [ ] Advanced admin analytics
 - [ ] Bulk card import/export
 - [ ] Image upload functionality
@@ -211,5 +210,3 @@ This is an educational project, but contributions are welcome! Feel free to:
 - [Apollo GraphQL](https://www.apollographql.com/) - GraphQL implementation
 
 ---
-
-**Note**: This is a demonstration project. The checkout process is mocked and does not include real payment processing.

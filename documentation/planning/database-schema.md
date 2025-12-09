@@ -7,6 +7,7 @@ The database schema is designed to handle Pokémon cards with multiple condition
 ## Core Design Concept
 
 **Important**: A single Pokémon card (e.g., "Pikachu from Base Set") can have multiple conditions (Mint, Good, etc.). Each condition variant has its own:
+
 - Price
 - Quantity in stock
 - Separate inventory tracking
@@ -194,16 +195,19 @@ model OrderItem {
 ## Schema Explanation
 
 ### User Management
+
 - **User**: Stores user information with role (CUSTOMER or ADMIN)
 - **Account/Session/VerificationToken**: Required for NextAuth.js OAuth
 
 ### Product Structure
+
 - **Card**: Base Pokémon card information (name, image, set, rarity)
 - **CardInventory**: Specific condition variants with individual pricing and quantity
   - A "Pikachu Base Set" card might have 3 CardInventory records (Mint, Near Mint, Good)
   - Each inventory item has its own price and stock count
 
 ### Order Management
+
 - **Order**: Customer orders with shipping information
 - **OrderItem**: Links orders to specific CardInventory items
   - Stores price at purchase time (price history)
@@ -260,6 +264,7 @@ CardInventory (Many) → (1) Card
 ## Indexes
 
 ### Performance Indexes
+
 - `cards.name`: For search queries
 - `cards.set`: For filtering by set
 - `cards.rarity`: For filtering by rarity
@@ -273,12 +278,14 @@ CardInventory (Many) → (1) Card
 ## Migrations Strategy
 
 ### Initial Migration
+
 ```bash
 # Create initial schema
 npx prisma migrate dev --name init
 ```
 
 ### Future Migrations
+
 ```bash
 # Add new fields or tables
 npx prisma migrate dev --name add_description_to_cards
@@ -356,6 +363,7 @@ main()
 ## Query Examples
 
 ### Get card with all condition variants
+
 ```typescript
 const card = await prisma.card.findUnique({
   where: { id: cardId },
@@ -369,6 +377,7 @@ const card = await prisma.card.findUnique({
 ```
 
 ### Create order with inventory decrement
+
 ```typescript
 const order = await prisma.$transaction(async (tx) => {
   // Create order
@@ -404,6 +413,7 @@ const order = await prisma.$transaction(async (tx) => {
 ```
 
 ### Search and filter cards
+
 ```typescript
 const cards = await prisma.card.findMany({
   where: {
@@ -431,12 +441,14 @@ const cards = await prisma.card.findMany({
 ## Data Integrity
 
 ### Constraints
+
 - Card names are not unique (different sets can have same card)
 - CardInventory has unique constraint on (cardId, condition)
 - Order numbers are unique and human-readable
 - Foreign keys enforce referential integrity
 
 ### Validation Rules
+
 - Quantity cannot be negative
 - Price must be positive
 - Order total must match sum of order items

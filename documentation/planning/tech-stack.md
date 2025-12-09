@@ -3,8 +3,9 @@
 ## Frontend Stack
 
 ### Next.js 15+
+
 - **Framework**: React-based full-stack framework with App Router
-- **Why**: 
+- **Why**:
   - Server-side rendering for SEO
   - Built-in API routes
   - Excellent performance with React Server Components
@@ -12,6 +13,7 @@
   - File-based routing
 
 ### Shadcn/UI
+
 - **Component Library**: Accessible, customizable UI components
 - **Built on**: Radix UI + Tailwind CSS
 - **Why**:
@@ -22,6 +24,7 @@
   - Great TypeScript support
 
 ### Additional Frontend Tools
+
 - **TypeScript**: Type safety across the application
 - **Tailwind CSS**: Utility-first CSS framework
 - **Zustand**: Lightweight state management for cart
@@ -32,6 +35,7 @@
 ## Backend Stack
 
 ### GraphQL
+
 - **API Type**: Query language for APIs
 - **Implementation**: Apollo Server or Pothos GraphQL
 - **Why**:
@@ -42,6 +46,7 @@
   - Efficient querying of related data
 
 ### PostgreSQL
+
 - **Database**: Relational database
 - **Why**:
   - ACID compliance for orders
@@ -51,6 +56,7 @@
   - Strong data relationships
 
 ### Prisma
+
 - **ORM**: Type-safe database client
 - **Why**:
   - Auto-generated TypeScript types
@@ -60,6 +66,7 @@
   - Schema-first approach
 
 ### NextAuth.js
+
 - **Authentication**: OAuth provider integration
 - **Why**:
   - Easy Google OAuth setup
@@ -71,21 +78,25 @@
 ## Development Tools
 
 ### Version Control
+
 - **Git**: Source control
 - **GitHub**: Repository hosting
 
 ### Code Quality
+
 - **ESLint**: JavaScript/TypeScript linting
 - **Prettier**: Code formatting
 - **Husky**: Git hooks for pre-commit checks
 - **TypeScript**: Static type checking
 
 ### Testing
+
 - **Jest**: Unit testing
 - **React Testing Library**: Component testing
 - **Playwright** (optional): E2E testing
 
 ### Development Environment
+
 - **VS Code**: Recommended IDE
 - **Node.js**: 18+ required
 - **npm/pnpm**: Package management
@@ -93,6 +104,7 @@
 ## Deployment & Hosting
 
 ### Application Hosting
+
 - **Vercel**: (Recommended) Optimal for Next.js
   - Automatic deployments
   - Preview URLs for PRs
@@ -104,6 +116,7 @@
 #### Recommended Options
 
 **1. Neon (Recommended for Development & Small-Scale Production)**
+
 - **Why**: Serverless PostgreSQL with generous free tier
 - **Pros**:
   - Free tier includes 0.5 GB storage, 3 GB data transfer
@@ -116,6 +129,7 @@
 - **Cost**: Free for hobby projects, ~$19/month for production
 
 **2. Vercel Postgres (Best Vercel Integration)**
+
 - **Why**: Native Vercel integration, serverless
 - **Pros**:
   - Seamless Vercel deployment
@@ -127,6 +141,7 @@
 - **Cost**: Free tier 256 MB, Pro starts at $20/month
 
 **3. Supabase (Feature-Rich Alternative)**
+
 - **Why**: PostgreSQL with additional features (auth, storage, realtime)
 - **Pros**:
   - Generous free tier (500 MB, 2 GB bandwidth)
@@ -138,6 +153,7 @@
 - **Cost**: Free tier, Pro $25/month
 
 **4. Railway (Simple & Developer-Friendly)**
+
 - **Why**: Easy setup, fair pricing
 - **Pros**:
   - $5 free credit monthly
@@ -149,6 +165,7 @@
 - **Cost**: $5 free credit/month, then usage-based
 
 **5. Local Development**
+
 - **Why**: Full control, no cost
 - **Pros**: Free, fast, complete control
 - **Cons**: Need to manage PostgreSQL installation, not for production
@@ -157,16 +174,19 @@
 #### Our Recommendation
 
 **For This Project**: Start with **Neon** for both development and production
+
 - Best free tier for hobby projects
 - Easy to scale when needed
 - Simple connection string setup
 - Good performance
 
-**Alternative Path**: 
+**Alternative Path**:
+
 - **Local PostgreSQL** for development
 - **Neon or Vercel Postgres** for production
 
 ### Image Storage
+
 - **Local Storage**: Images stored in `/public` folder
 - **Future**: Could migrate to Cloudinary or AWS S3
 
@@ -174,7 +194,7 @@
 
 ### Why This Stack?
 
-1. **Next.js 15+**: 
+1. **Next.js 15+**:
    - Latest App Router for better performance
    - React Server Components reduce client bundle
    - Built-in optimization
@@ -250,6 +270,7 @@ pokemon-card-shop/
 ## Environment Variables
 
 ### Development (.env.local)
+
 ```bash
 # Database (choose one based on your hosting choice)
 
@@ -278,7 +299,9 @@ NODE_ENV="development"
 ```
 
 ### Production (Vercel Environment Variables)
+
 Set these in Vercel Dashboard → Project Settings → Environment Variables:
+
 - `DATABASE_URL` - Your production database connection string
 - `NEXTAUTH_URL` - Your production domain
 - `NEXTAUTH_SECRET` - Same secret or generate new one
@@ -288,6 +311,7 @@ Set these in Vercel Dashboard → Project Settings → Environment Variables:
 ## Package Dependencies
 
 ### Core Dependencies
+
 ```json
 {
   "next": "^15.0.0",
@@ -298,6 +322,7 @@ Set these in Vercel Dashboard → Project Settings → Environment Variables:
 ```
 
 ### Authentication
+
 ```json
 {
   "next-auth": "^5.0.0"
@@ -305,6 +330,7 @@ Set these in Vercel Dashboard → Project Settings → Environment Variables:
 ```
 
 ### Database
+
 ```json
 {
   "@prisma/client": "^5.0.0",
@@ -313,6 +339,7 @@ Set these in Vercel Dashboard → Project Settings → Environment Variables:
 ```
 
 ### GraphQL
+
 ```json
 {
   "@apollo/server": "^4.0.0",
@@ -323,6 +350,7 @@ Set these in Vercel Dashboard → Project Settings → Environment Variables:
 ```
 
 ### UI & Styling
+
 ```json
 {
   "tailwindcss": "^3.4.0",
@@ -334,6 +362,7 @@ Set these in Vercel Dashboard → Project Settings → Environment Variables:
 ```
 
 ### State & Forms
+
 ```json
 {
   "zustand": "^4.0.0",
@@ -344,6 +373,7 @@ Set these in Vercel Dashboard → Project Settings → Environment Variables:
 ```
 
 ### Utilities
+
 ```json
 {
   "date-fns": "^3.0.0",

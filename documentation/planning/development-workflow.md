@@ -55,6 +55,7 @@ touch .env.local
 ```
 
 Add the following:
+
 ```
 DATABASE_URL="postgresql://user:password@localhost:5432/pokemon_cards"
 NEXTAUTH_URL="http://localhost:3000"
@@ -82,6 +83,7 @@ npx prisma generate
 ### 1.5 Project Structure
 
 Create the following directory structure:
+
 ```
 src/
 ├── app/
@@ -107,6 +109,7 @@ src/
 ### 2.1 Authentication Setup
 
 **Tasks:**
+
 - [ ] Configure NextAuth.js with Google OAuth
 - [ ] Create auth API routes
 - [ ] Setup Prisma adapter
@@ -115,6 +118,7 @@ src/
 - [ ] Add AuthProvider to root layout
 
 **Files to create:**
+
 - `src/lib/auth.ts`
 - `src/app/api/auth/[...nextauth]/route.ts`
 - `src/app/(auth)/auth/signin/page.tsx`
@@ -124,17 +128,20 @@ src/
 ### 2.2 Database Utilities
 
 **Tasks:**
+
 - [ ] Create Prisma client singleton
 - [ ] Create seed script
 - [ ] Seed initial data (categories, sample cards)
 
 **Files to create:**
+
 - `src/lib/prisma.ts`
 - `prisma/seed.ts`
 
 ### 2.3 GraphQL API Setup
 
 **Tasks:**
+
 - [ ] Setup Apollo Server
 - [ ] Define GraphQL schema
 - [ ] Implement resolvers (queries and mutations)
@@ -142,6 +149,7 @@ src/
 - [ ] Setup GraphQL API route
 
 **Files to create:**
+
 - `src/lib/graphql/schema.ts`
 - `src/lib/graphql/resolvers/index.ts`
 - `src/lib/graphql/resolvers/Query.ts`
@@ -152,12 +160,14 @@ src/
 ### 2.4 Apollo Client Setup
 
 **Tasks:**
+
 - [ ] Configure Apollo Client
 - [ ] Create GraphQL queries
 - [ ] Create GraphQL mutations
 - [ ] Setup Apollo Provider
 
 **Files to create:**
+
 - `src/lib/graphql/client.ts`
 - `src/lib/graphql/queries.ts`
 - `src/lib/graphql/mutations.ts`
@@ -168,6 +178,7 @@ src/
 ### 3.1 Product Catalog
 
 **Tasks:**
+
 - [ ] Create Card components (CardItem, CardGrid)
 - [ ] Implement product listing page
 - [ ] Create product detail page with condition selector
@@ -175,6 +186,7 @@ src/
 - [ ] Implement image optimization
 
 **Files to create:**
+
 - `src/components/product/CardItem.tsx`
 - `src/components/product/CardGrid.tsx`
 - `src/components/product/CardDetail.tsx`
@@ -185,6 +197,7 @@ src/
 ### 3.2 Search and Filtering
 
 **Tasks:**
+
 - [ ] Create SearchBar component
 - [ ] Implement SearchFilters component
 - [ ] Create search results page
@@ -192,6 +205,7 @@ src/
 - [ ] Implement search query handling
 
 **Files to create:**
+
 - `src/components/search/SearchBar.tsx`
 - `src/components/search/SearchFilters.tsx`
 - `src/components/search/SearchResults.tsx`
@@ -200,6 +214,7 @@ src/
 ### 3.3 Shopping Cart
 
 **Tasks:**
+
 - [ ] Create Zustand cart store
 - [ ] Implement CartButton with badge
 - [ ] Create CartDrawer/CartSheet
@@ -208,6 +223,7 @@ src/
 - [ ] Add cart summary
 
 **Files to create:**
+
 - `src/lib/stores/cart.ts`
 - `src/components/cart/CartButton.tsx`
 - `src/components/cart/CartDrawer.tsx`
@@ -217,6 +233,7 @@ src/
 ### 3.4 Checkout Process
 
 **Tasks:**
+
 - [ ] Create checkout page (protected route)
 - [ ] Implement ShippingForm
 - [ ] Create OrderSummary component
@@ -225,6 +242,7 @@ src/
 - [ ] Create order success page
 
 **Files to create:**
+
 - `src/app/(shop)/checkout/page.tsx`
 - `src/components/checkout/CheckoutForm.tsx`
 - `src/components/checkout/ShippingForm.tsx`
@@ -234,11 +252,13 @@ src/
 ### 3.5 Order History
 
 **Tasks:**
+
 - [ ] Create orders list page
 - [ ] Implement order detail page
 - [ ] Add order status display
 
 **Files to create:**
+
 - `src/app/(shop)/orders/page.tsx`
 - `src/app/(shop)/orders/[id]/page.tsx`
 - `src/components/order/OrderCard.tsx`
@@ -248,11 +268,13 @@ src/
 ### 4.1 Admin Layout
 
 **Tasks:**
+
 - [ ] Create admin layout with sidebar
 - [ ] Implement admin route protection
 - [ ] Create admin dashboard
 
 **Files to create:**
+
 - `src/app/admin/layout.tsx`
 - `src/components/layout/AdminSidebar.tsx`
 - `src/app/admin/page.tsx`
@@ -260,6 +282,7 @@ src/
 ### 4.2 Card Management
 
 **Tasks:**
+
 - [ ] Create card list page
 - [ ] Implement add new card form
 - [ ] Create edit card form
@@ -267,6 +290,7 @@ src/
 - [ ] Implement delete card functionality
 
 **Files to create:**
+
 - `src/app/admin/cards/page.tsx`
 - `src/app/admin/cards/new/page.tsx`
 - `src/app/admin/cards/[id]/edit/page.tsx`
@@ -276,11 +300,13 @@ src/
 ### 4.3 Order Management
 
 **Tasks:**
+
 - [ ] Create all orders list page
 - [ ] Implement order detail view
 - [ ] Add order status update functionality
 
 **Files to create:**
+
 - `src/app/admin/orders/page.tsx`
 - `src/app/admin/orders/[id]/page.tsx`
 - `src/components/admin/OrdersList.tsx`
@@ -290,6 +316,7 @@ src/
 ### 5.1 Layout Components
 
 **Tasks:**
+
 - [ ] Create Header component
 - [ ] Implement Navbar with search
 - [ ] Create Footer component
@@ -297,6 +324,7 @@ src/
 - [ ] Implement responsive design
 
 **Files to create:**
+
 - `src/components/layout/Header.tsx`
 - `src/components/layout/Navbar.tsx`
 - `src/components/layout/Footer.tsx`
@@ -305,22 +333,26 @@ src/
 ### 5.2 Loading States
 
 **Tasks:**
+
 - [ ] Add loading skeletons
 - [ ] Implement loading spinners
 - [ ] Create suspense boundaries
 
 **Files to create:**
+
 - `src/components/ui/skeleton.tsx`
 - `src/components/loading/CardSkeleton.tsx`
 
 ### 5.3 Error Handling
 
 **Tasks:**
+
 - [ ] Create error boundaries
 - [ ] Add error pages (404, 500, unauthorized)
 - [ ] Implement toast notifications
 
 **Files to create:**
+
 - `src/app/error.tsx`
 - `src/app/not-found.tsx`
 - `src/app/unauthorized/page.tsx`
@@ -330,6 +362,7 @@ src/
 ### 6.1 Testing
 
 **Tasks:**
+
 - [ ] Write unit tests for utilities
 - [ ] Test cart store
 - [ ] Test GraphQL resolvers
@@ -339,6 +372,7 @@ src/
 ### 6.2 Performance Optimization
 
 **Tasks:**
+
 - [ ] Optimize images
 - [ ] Implement lazy loading
 - [ ] Add caching strategies
@@ -348,6 +382,7 @@ src/
 ### 6.3 Security Review
 
 **Tasks:**
+
 - [ ] Review authentication flows
 - [ ] Check authorization logic
 - [ ] Validate input sanitization
@@ -359,6 +394,7 @@ src/
 ### 7.1 Pre-Deployment
 
 **Tasks:**
+
 - [ ] Update environment variables for production
 - [ ] Configure Google OAuth for production domain
 - [ ] Setup production database
@@ -368,6 +404,7 @@ src/
 ### 7.2 Deployment
 
 **Tasks:**
+
 - [ ] Deploy to Vercel
 - [ ] Configure custom domain (if applicable)
 - [ ] Setup environment variables in Vercel
@@ -377,6 +414,7 @@ src/
 ### 7.3 Post-Deployment
 
 **Tasks:**
+
 - [ ] Setup error monitoring (Sentry)
 - [ ] Configure analytics
 - [ ] Create backup strategy
@@ -445,6 +483,7 @@ npm run test:watch         # Watch mode
 ## Troubleshooting Common Issues
 
 ### Database Connection Issues
+
 ```bash
 # Check if PostgreSQL is running
 pg_ctl status
@@ -456,6 +495,7 @@ pg_ctl restart
 ```
 
 ### Authentication Issues
+
 ```bash
 # Regenerate NEXTAUTH_SECRET
 openssl rand -base64 32
@@ -465,6 +505,7 @@ openssl rand -base64 32
 ```
 
 ### Build Errors
+
 ```bash
 # Clear Next.js cache
 rm -rf .next

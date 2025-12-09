@@ -7,6 +7,7 @@ The application uses NextAuth.js v5 (Auth.js) for authentication with Google OAu
 ## Authentication Flow
 
 ### Anonymous User Flow
+
 1. User browses products and adds items to cart (stored in localStorage)
 2. User attempts to checkout
 3. User is redirected to sign-in page
@@ -14,6 +15,7 @@ The application uses NextAuth.js v5 (Auth.js) for authentication with Google OAu
 5. Cart data persists through the authentication process
 
 ### Authenticated User Flow
+
 1. User signs in with Google OAuth
 2. Session is created and stored
 3. User can complete checkout
@@ -475,6 +477,7 @@ declare module 'next-auth' {
 ## Testing Authentication
 
 ### Manual Testing Checklist
+
 - [ ] Anonymous user can browse products
 - [ ] Anonymous user can add items to cart
 - [ ] Cart persists in localStorage

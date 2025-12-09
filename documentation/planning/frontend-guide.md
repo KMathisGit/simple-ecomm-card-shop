@@ -129,6 +129,7 @@ src/
 ### 1. Card Display Components
 
 #### CardItem Component
+
 ```tsx
 // components/product/CardItem.tsx
 import Image from 'next/image'
@@ -201,6 +202,7 @@ export function CardItem({ card }: CardItemProps) {
 ```
 
 #### ConditionSelector Component
+
 ```tsx
 // components/product/ConditionSelector.tsx
 'use client'
@@ -281,6 +283,7 @@ export function ConditionSelector({ inventory, onSelect }: ConditionSelectorProp
 ### 2. Cart Components
 
 #### Cart Store (Zustand)
+
 ```tsx
 // lib/stores/cart.ts
 import { create } from 'zustand'
@@ -366,6 +369,7 @@ export const useCartStore = create<CartState>()(
 ```
 
 #### CartButton Component
+
 ```tsx
 // components/cart/CartButton.tsx
 'use client'
@@ -408,6 +412,7 @@ export function CartButton() {
 ### 3. Search and Filter Components
 
 #### SearchBar Component
+
 ```tsx
 // components/search/SearchBar.tsx
 'use client'
@@ -448,6 +453,7 @@ export function SearchBar() {
 ```
 
 #### SearchFilters Component
+
 ```tsx
 // components/search/SearchFilters.tsx
 'use client'
@@ -572,6 +578,7 @@ export function SearchFilters({ availableSets, availableSeries }: SearchFiltersP
 ### 4. Checkout Components
 
 #### CheckoutForm Component
+
 ```tsx
 // components/checkout/CheckoutForm.tsx
 'use client'
