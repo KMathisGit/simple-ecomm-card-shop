@@ -210,8 +210,3 @@ This is an educational project, but contributions are welcome! Feel free to:
 - [Apollo GraphQL](https://www.apollographql.com/) - GraphQL implementation
 
 ---
-<<<<<<< HEAD
-=======
-
-**Note**: This is a demonstration project. The checkout process is mocked and does not include real payment processing.
->>>>>>> 7f4d7628b4ee0c7957e79b4dde224ad1088f1633
