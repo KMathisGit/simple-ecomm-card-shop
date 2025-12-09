@@ -1,6 +1,6 @@
 # Pokémon Card E-Commerce Store
 
-A modern, full-stack e-commerce web application for buying and selling Pokémon cards. Built with Next.js 15, TypeScript, GraphQL, and PostgreSQL.
+A modern, full-stack e-commerce web application for Pokémon cards. Built with Next.js 15, TypeScript, GraphQL, and PostgreSQL.
 
 ## 🎯 Project Purpose
 
