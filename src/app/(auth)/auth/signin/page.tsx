@@ -1,20 +1,26 @@
-"use client"
+"use client";
 
-import { getProviders, signIn } from "next-auth/react"
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { getProviders, signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function SignIn() {
-  const [providers, setProviders] = useState<any>(null)
+  const [providers, setProviders] = useState<any>(null);
 
   useEffect(() => {
     const getProvidersData = async () => {
-      const providers = await getProviders()
-      setProviders(providers)
-    }
-    getProvidersData()
-  }, [])
+      const providers = await getProviders();
+      setProviders(providers);
+    };
+    getProvidersData();
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -40,5 +46,5 @@ export default function SignIn() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
