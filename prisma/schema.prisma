@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User model for authentication
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      UserRole @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accounts Account[]
+  sessions Session[]
+  orders   Order[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+// NextAuth models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Pokemon Card model (base card info)
+model Card {
+  id          String   @id @default(cuid())
+  name        String
+  imageUrl    String
+  rarity      String
+  set         String // e.g., "Base Set", "Jungle", "Fossil"
+  cardNumber  String? // Card number in set (e.g., "25/102")
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Each card can have multiple condition variants
+  inventoryItems CardInventory[]
+
+  @@index([name])
+  @@index([set])
+  @@index([rarity])
+  @@map("cards")
+}
+
+// Card Inventory - Represents a card with a specific condition
+model CardInventory {
+  id        String        @id @default(cuid())
+  cardId    String
+  condition CardCondition
+  price     Decimal       @db.Decimal(10, 2)
+  quantity  Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  card       Card        @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  // Each card can only have one entry per condition
+  @@unique([cardId, condition])
+  @@index([cardId])
+  @@index([condition])
+  @@index([price])
+  @@map("card_inventory")
+}
+
+enum CardCondition {
+  MINT
+  NEAR_MINT
+  EXCELLENT
+  GOOD
+  LIGHT_PLAYED
+  PLAYED
+  POOR
+}
+
+// Order model
+model Order {
+  id          String  @id @default(cuid())
+  userId      String
+  orderNumber String  @unique // Human-readable order number
+  totalAmount Decimal @db.Decimal(10, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user       User        @relation(fields: [userId], references: [id])
+  orderItems OrderItem[]
+
+  @@index([userId])
+  @@index([orderNumber])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+// Order items - links orders to specific card inventory
+model OrderItem {
+  id              String  @id @default(cuid())
+  orderId         String
+  cardInventoryId String
+  quantity        Int
+  priceAtPurchase Decimal @db.Decimal(10, 2) // Store price at time of purchase
+
+  order         Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  cardInventory CardInventory @relation(fields: [cardInventoryId], references: [id])
+
+  @@index([orderId])
+  @@index([cardInventoryId])
+  @@map("order_items")
+}

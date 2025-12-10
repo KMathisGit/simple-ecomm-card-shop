@@ -31,9 +31,7 @@ model User {
   id            String    @id @default(cuid())
   email         String    @unique
   name          String?
-  image         String?
   role          UserRole  @default(CUSTOMER)
-  emailVerified DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   
@@ -146,11 +144,7 @@ model Order {
   id              String      @id @default(cuid())
   userId          String
   orderNumber     String      @unique // Human-readable order number
-  status          OrderStatus @default(PENDING)
   totalAmount     Decimal     @db.Decimal(10, 2)
-  
-  // Shipping information (stored as JSON for simplicity)
-  shippingAddress Json
   
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
@@ -163,15 +157,6 @@ model Order {
   @@index([status])
   @@index([createdAt])
   @@map("orders")
-}
-
-enum OrderStatus {
-  PENDING
-  CONFIRMED
-  PROCESSING
-  SHIPPED
-  DELIVERED
-  CANCELLED
 }
 
 // Order items - links orders to specific card inventory
@@ -384,7 +369,6 @@ const order = await prisma.$transaction(async (tx) => {
       orderNumber: generateOrderNumber(),
       status: 'CONFIRMED',
       totalAmount,
-      shippingAddress,
       orderItems: {
         create: items.map(item => ({
           cardInventoryId: item.inventoryId,

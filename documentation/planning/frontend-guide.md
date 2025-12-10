@@ -2,7 +2,7 @@
 
 ## Overview
 
-The frontend is built with Next.js 15 App Router, TypeScript, Shadcn/UI components, and Tailwind CSS. This guide covers the component architecture, state management, and implementation patterns specific to the Pokémon card store.
+The frontend is built with Next.js 16 App Router, TypeScript, Shadcn/UI components, and Tailwind CSS. This guide covers the component architecture, state management, and implementation patterns specific to the Pokémon card store.
 
 ## Project Structure
 
