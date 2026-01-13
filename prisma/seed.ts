@@ -100,13 +100,13 @@ function determineRarity(
 
 // Price calculation based on rarity and condition
 function calculatePrice(rarity: string, condition: CardCondition): number {
-  const basePrices = {
+  const basePrices: Record<string, number> = {
     Common: 0.5,
     Uncommon: 1.5,
     Rare: 5.0,
   };
 
-  const conditionMultipliers = {
+  const conditionMultipliers: Record<CardCondition, number> = {
     POOR: 0.3,
     PLAYED: 0.5,
     LIGHT_PLAYED: 0.7,
@@ -117,19 +117,21 @@ function calculatePrice(rarity: string, condition: CardCondition): number {
   };
 
   return (
-    Math.round(basePrices[rarity] * conditionMultipliers[condition] * 100) / 100
+    Math.round(
+      (basePrices[rarity] || 1.0) * conditionMultipliers[condition] * 100
+    ) / 100
   );
 }
 
 // Stock calculation (more stock for common cards, less for rare)
 function calculateStock(rarity: string, condition: CardCondition): number {
-  const baseStock = {
+  const baseStock: Record<string, number> = {
     Common: 50,
     Uncommon: 25,
     Rare: 10,
   };
 
-  const conditionMultipliers = {
+  const conditionMultipliers: Record<CardCondition, number> = {
     POOR: 1.5,
     PLAYED: 1.3,
     LIGHT_PLAYED: 1.2,
@@ -139,7 +141,9 @@ function calculateStock(rarity: string, condition: CardCondition): number {
     MINT: 0.5,
   };
 
-  return Math.floor(baseStock[rarity] * conditionMultipliers[condition]);
+  return Math.floor(
+    (baseStock[rarity] || 20) * conditionMultipliers[condition]
+  );
 }
 
 async function main() {
