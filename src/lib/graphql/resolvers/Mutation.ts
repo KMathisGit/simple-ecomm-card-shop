@@ -1,5 +1,5 @@
 import { GraphQLContext } from "../context";
-import { CardCondition } from "@/generated/prisma";
+import { CardCondition } from "@prisma/client";
 
 interface CreateOrderInput {
   items: OrderItemInput[];
@@ -44,7 +44,11 @@ export const Mutation = {
     if (!user) throw new Error("Not authenticated");
 
     // Validate items and check inventory
-    const orderItems = [];
+    const orderItems: Array<{
+      cardInventoryId: string;
+      quantity: number;
+      priceAtPurchase: number;
+    }> = [];
     let totalAmount = 0;
 
     for (const item of input.items) {
@@ -64,7 +68,7 @@ export const Mutation = {
       orderItems.push({
         cardInventoryId: item.cardInventoryId,
         quantity: item.quantity,
-        priceAtPurchase: inventory.price,
+        priceAtPurchase: Number(inventory.price),
       });
 
       totalAmount += Number(inventory.price) * item.quantity;

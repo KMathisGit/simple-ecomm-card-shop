@@ -1,5 +1,5 @@
 import { GraphQLContext } from "../context";
-import { CardCondition, UserRole } from "@/generated/prisma";
+import { CardCondition, UserRole } from "@prisma/client";
 
 interface CardFilter {
   name?: string;
@@ -29,7 +29,7 @@ export const Query = {
         where.name = { contains: filter.name, mode: "insensitive" };
       }
       if (filter.set) {
-        where.set = { contains: filter.set, mode: "insensitive" };
+        where.set = { equals: filter.set, mode: "insensitive" };
       }
       if (filter.rarity) {
         where.rarity = { contains: filter.rarity, mode: "insensitive" };

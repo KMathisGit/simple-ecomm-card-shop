@@ -26,13 +26,22 @@ export const apolloClient = new ApolloClient({
         fields: {
           cards: {
             keyArgs: ["filter"],
-            merge(existing = [], incoming) {
+            merge(existing = [], incoming, { args }) {
+              // Prevent duplicates by using offset-based pagination
+              const offset = args?.offset || 0;
+              if (offset === 0) {
+                return incoming;
+              }
               return [...existing, ...incoming];
             },
           },
           orders: {
             keyArgs: [],
-            merge(existing = [], incoming) {
+            merge(existing = [], incoming, { args }) {
+              const offset = args?.offset || 0;
+              if (offset === 0) {
+                return incoming;
+              }
               return [...existing, ...incoming];
             },
           },

@@ -1,6 +1,3 @@
-// GraphQL Client
-export { apolloClient } from "./client";
-
 // Queries
 export {
   GET_CARDS,
@@ -22,8 +19,3 @@ export {
   UPDATE_INVENTORY,
   DELETE_INVENTORY,
 } from "./mutations";
-
-// Context and Schema (for server-side use)
-export { createContext } from "./context";
-export { typeDefs } from "./schema";
-export { resolvers } from "./resolvers";
