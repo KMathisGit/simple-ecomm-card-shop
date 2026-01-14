@@ -32,7 +32,7 @@ export default function CheckoutPage() {
     cvv: "",
   });
 
-  const [createOrder] = useMutation(CREATE_ORDER);
+  const [createOrder] = useMutation<{ createOrder?: { orderNumber: string } }>(CREATE_ORDER);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,7 +61,9 @@ export default function CheckoutPage() {
 
       // Clear cart and redirect to success page
       clearCart();
-      router.push(`/checkout/success?orderNumber=${data.createOrder.orderNumber}`);
+      if(data?.createOrder) {
+        router.push(`/checkout/success?orderNumber=${data.createOrder.orderNumber}`);
+      }
     } catch (error) {
       console.error("Error creating order:", error);
       setIsProcessing(false);
