@@ -1,11 +1,12 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Package, ArrowRight } from "lucide-react";
 
-export default function CheckoutSuccessPage() {
+function CheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const orderNumber = searchParams.get("orderNumber") || "Unknown";
 
@@ -76,5 +77,13 @@ export default function CheckoutSuccessPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense fallback={<div className="container mx-auto px-4 py-16 text-center">Loading...</div>}>
+      <CheckoutSuccessContent />
+    </Suspense>
   );
 }

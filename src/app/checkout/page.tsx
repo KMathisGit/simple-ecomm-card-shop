@@ -20,16 +20,16 @@ export default function CheckoutPage() {
   const total = totalPrice();
   const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
+    email: "you@example.com",
+    firstName: "John",
+    lastName: "Smith",
+    address: "123 Main St",
+    city: "San Francisco",
+    state: "CA",
+    zipCode: "94105",
+    cardNumber: "4111 1111 1111 1111",
+    expiryDate: "12/25",
+    cvv: "123",
   });
 
   const [createOrder] = useMutation<{ createOrder?: { orderNumber: string } }>(CREATE_ORDER);
