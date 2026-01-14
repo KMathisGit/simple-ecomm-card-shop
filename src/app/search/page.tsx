@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@apollo/client/react";
@@ -18,7 +19,7 @@ import {
 import { CardCondition } from "@prisma/client";
 import { Search, Filter, X } from "lucide-react";
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const urlSet = searchParams.get("set") || "";
   const urlName = searchParams.get("name") || "";
@@ -360,5 +361,13 @@ export default function SearchPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="container mx-auto px-4 py-8">Loading search...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }
