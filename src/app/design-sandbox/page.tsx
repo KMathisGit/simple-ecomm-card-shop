@@ -1,29 +1,29 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Palette } from "lucide-react";
+import { ArrowRight, Palette, Check } from "lucide-react";
 
 export default function DesignSandboxPage() {
   const sandboxPages = [
     {
-      title: "Card Display Variants",
+      title: "Badge Components",
       description:
-        "Table-like row layouts for displaying Pokemon cards in search results. Features scannable information with stock, conditions, and pricing data.",
-      href: "/design-sandbox/card-display",
-      variants: 4,
-    },
-    {
-      title: "Badge Variants",
-      description:
-        "Different approaches to displaying Rarity and Condition badges. From solid color pills to minimalist text-only styles.",
+        "Reusable RarityBadge and ConditionBadge components with outlined style and subtle backgrounds. Used throughout the application for consistent card status display.",
       href: "/design-sandbox/badges",
-      variants: 4,
+      status: "Production",
     },
     {
-      title: "Card Details Page Variants",
+      title: "Card Row Component",
       description:
-        "Layouts for the individual card details/view page. Features split hero layout and card-first design with clean, professional aesthetics.",
+        "Compact row-based layout for displaying cards in search results. Features stock count, conditions available, rarity badges, and starting price.",
+      href: "/design-sandbox/card-display",
+      status: "Production",
+    },
+    {
+      title: "Card Detail Component",
+      description:
+        "Split hero layout for individual card pages. Card image on left, condition selector and add to cart on right. Professional aesthetic with full purchase functionality.",
       href: "/design-sandbox/card-details",
-      variants: 2,
+      status: "Production",
     },
   ];
 
@@ -35,16 +35,16 @@ export default function DesignSandboxPage() {
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 mb-6">
             <Palette className="h-4 w-4 text-primary" />
             <span className="text-sm font-medium text-primary">
-              Design Exploration
+              Component Library
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Design Sandbox
           </h1>
           <p className="text-lg text-muted-foreground">
-            A dedicated space for rapid design iteration and exploration.
-            Compare multiple design variations side-by-side to find the perfect
-            approach for each UI component.
+            A dedicated space for viewing production-ready UI components.
+            These components are used throughout the application and are
+            documented here for reference.
           </p>
         </div>
 
@@ -57,8 +57,9 @@ export default function DesignSandboxPage() {
               className="group block rounded-2xl border bg-card p-6 transition-all hover:shadow-xl hover:border-primary/50"
             >
               <div className="mb-4">
-                <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-3">
-                  {page.variants} Variants
+                <div className="inline-flex items-center gap-1.5 rounded-lg bg-green-100 dark:bg-green-950 px-3 py-1 text-xs font-medium text-green-700 dark:text-green-300 mb-3">
+                  <Check className="h-3 w-3" />
+                  {page.status}
                 </div>
                 <h2 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                   {page.title}
@@ -68,7 +69,7 @@ export default function DesignSandboxPage() {
                 </p>
               </div>
               <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                View Variants
+                View Component
                 <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
@@ -77,10 +78,10 @@ export default function DesignSandboxPage() {
 
         {/* Documentation Link */}
         <div className="mt-12 rounded-2xl border bg-muted/30 p-8 text-center">
-          <h3 className="text-xl font-bold mb-2">Design Sandbox Strategy</h3>
+          <h3 className="text-xl font-bold mb-2">Component Documentation</h3>
           <p className="text-muted-foreground mb-4">
-            Learn about the methodology and best practices for using the design
-            sandbox effectively.
+            Learn about the methodology and best practices for using these
+            components effectively in your implementation.
           </p>
           <Button variant="outline" asChild>
             <Link href="/documentation/design-sandbox-strategy.md">
@@ -95,7 +96,7 @@ export default function DesignSandboxPage() {
             href="/"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            ← Back to Home
+            &larr; Back to Home
           </Link>
         </div>
       </div>

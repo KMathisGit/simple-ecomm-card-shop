@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useQuery } from "@apollo/client/react";
 import { GET_CARDS } from "@/lib/graphql";
 import { GetCardsResponse } from "@/types/graphql";
-import { CardGrid } from "@/components/product/CardGrid";
+import { CardRowList } from "@/components/product/CardRow";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -344,8 +344,8 @@ export default function SearchPage() {
         )}
       </div>
 
-      {/* Card Grid */}
-      <CardGrid
+      {/* Card List */}
+      <CardRowList
         cards={data?.cards || []}
         loading={loading}
         emptyMessage="No cards found matching your criteria"

@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ConditionSelector } from "./ConditionSelector";
+import { RarityBadge } from "./RarityBadge";
+import { ConditionBadge } from "./ConditionBadge";
+import { ShoppingCart, Heart, Share2 } from "lucide-react";
 import { CardCondition } from "@prisma/client";
 
 interface CardInventory {
@@ -27,121 +30,164 @@ interface CardDetailProps {
   onAddToCart?: (inventoryId: string, quantity: number) => void;
 }
 
-const rarityColors = {
-  Common: "bg-gray-100 text-gray-800",
-  Uncommon: "bg-blue-100 text-blue-800",
-  Rare: "bg-purple-100 text-purple-800",
-  "Ultra Rare": "bg-red-100 text-red-800",
-  "Secret Rare": "bg-yellow-100 text-yellow-800",
-  "1st Edition": "bg-green-100 text-green-800",
+// Map CardCondition enum to display string
+const conditionDisplayMap: Record<CardCondition, string> = {
+  MINT: "Mint",
+  NEAR_MINT: "Near Mint",
+  EXCELLENT: "Excellent",
+  GOOD: "Good",
+  LIGHT_PLAYED: "Light Played",
+  PLAYED: "Played",
+  POOR: "Poor",
 };
 
 export function CardDetail({ card, onAddToCart }: CardDetailProps) {
-  const getRarityColor = (rarity: string) => {
-    return (
-      rarityColors[rarity as keyof typeof rarityColors] ||
-      "bg-gray-100 text-gray-800"
-    );
+  // Default to first available inventory item
+  const availableItems = card.inventoryItems.filter((item) => item.quantity > 0);
+  const [selectedCondition, setSelectedCondition] = useState<CardInventory | null>(
+    availableItems.length > 0 ? availableItems[0] : null
+  );
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    if (selectedCondition && onAddToCart) {
+      onAddToCart(selectedCondition.id, quantity);
+    }
   };
 
-  const totalStock = card.inventoryItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
-  const lowestPrice = Math.min(
-    ...card.inventoryItems.map((item) => item.price)
-  );
-  const highestPrice = Math.max(
-    ...card.inventoryItems.map((item) => item.price)
-  );
-
   return (
-    <div className="space-y-6">
-      {/* Card Info and Image - Horizontal Layout */}
-      <div className="flex gap-6">
-        {/* Card Image - Smaller */}
-        <div className="shrink-0">
-          <div className="relative w-[250px] h-[350px] overflow-hidden rounded-lg bg-gray-100 shadow-lg">
-            <Image
-              src={card.imageUrl}
-              alt={card.name}
-              fill
-              className="object-cover"
-              priority
-              sizes="250px"
-            />
-          </div>
-        </div>
-
-        {/* Card Details - Vertical Stack */}
-        <div className="flex-1 space-y-4">
-          <div className="flex items-end gap-4">
-            <h1 className="text-3xl font-bold">{card.name}</h1>
-            <Badge className={`mb-1 ${getRarityColor(card.rarity)}`}>
-              {card.rarity}
-            </Badge>
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex items-center gap-8">
-              <div>
-                <div className="text-sm text-muted-foreground">Set</div>
-                <div className="font-medium">{card.set}</div>
-              </div>
-              {card.cardNumber && (
-                <div>
-                  <div className="text-sm text-muted-foreground">
-                    Card Number
-                  </div>
-                  <div className="font-medium">#{card.cardNumber}</div>
-                </div>
-              )}
-              <div>
-                <div className="text-sm text-muted-foreground">Total Stock</div>
-                <div className="font-medium">{totalStock} cards</div>
-              </div>
-            </div>
-
-            <Separator />
-
-            <div>
-              <div className="text-sm text-muted-foreground mb-1">
-                Price Range
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-green-600">
-                  ${lowestPrice.toFixed(2)}
-                </span>
-                {lowestPrice !== highestPrice && (
-                  <span className="text-muted-foreground">
-                    to ${highestPrice.toFixed(2)}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {card.description && (
-              <>
-                <Separator />
-                <div>
-                  <div className="text-sm text-muted-foreground mb-2">
-                    Description
-                  </div>
-                  <p className="text-sm leading-relaxed">{card.description}</p>
-                </div>
-              </>
+    <div className="rounded-2xl border bg-card overflow-hidden">
+      <div className="grid md:grid-cols-2 gap-8 p-8">
+        {/* Left: Image */}
+        <div className="space-y-4 flex flex-col items-center">
+          <div className="w-full max-w-xs mx-auto md:mx-0 md:max-w-md aspect-[325/447] bg-muted rounded-xl flex items-center justify-center relative overflow-hidden">
+            {card.imageUrl ? (
+              <Image
+                src={card.imageUrl}
+                alt={card.name}
+                fill
+                className="object-contain"
+                priority
+                sizes="(max-width: 768px) 300px, 400px"
+              />
+            ) : (
+              <span className="text-muted-foreground">Card Image</span>
             )}
           </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" className="flex-1">
+              <Heart className="h-4 w-4 mr-2" />
+              Wishlist
+            </Button>
+            <Button variant="outline" size="sm" className="flex-1">
+              <Share2 className="h-4 w-4 mr-2" />
+              Share
+            </Button>
+          </div>
         </div>
-      </div>
 
-      {/* Condition Selector */}
-      <div className="border-t pt-6">
-        <ConditionSelector
-          inventoryItems={card.inventoryItems}
-          onConditionSelect={() => {}}
-          onAddToCart={onAddToCart}
-        />
+        {/* Right: Details */}
+        <div className="space-y-6">
+          <div>
+            <div className="flex items-start justify-between mb-2">
+              <h1 className="text-3xl font-bold">{card.name}</h1>
+              <RarityBadge rarity={card.rarity} className="text-base px-3 py-1" />
+            </div>
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <span>{card.set}</span>
+              {card.cardNumber && (
+                <>
+                  <span>•</span>
+                  <span>#{card.cardNumber}</span>
+                </>
+              )}
+            </div>
+          </div>
+
+          {card.description && (
+            <p className="text-muted-foreground">{card.description}</p>
+          )}
+
+          <Separator />
+
+          {/* Condition Selector */}
+          <div className="space-y-3">
+            <label className="text-sm font-semibold">Select Condition</label>
+            <div className="grid grid-cols-2 gap-2">
+              {card.inventoryItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setSelectedCondition(item);
+                    setQuantity(1); // Reset quantity when condition changes
+                  }}
+                  disabled={item.quantity === 0}
+                  className={`p-3 rounded-lg border-2 text-left transition-all ${
+                    selectedCondition?.id === item.id
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-primary/50"
+                  } ${item.quantity === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <ConditionBadge condition={conditionDisplayMap[item.condition]} />
+                  </div>
+                  <div className="text-lg font-bold text-primary">
+                    ${item.price.toFixed(2)}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {item.quantity > 0 ? `${item.quantity} in stock` : "Out of stock"}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <Separator />
+
+          {/* Quantity & Add to Cart */}
+          {selectedCondition && selectedCondition.quantity > 0 && (
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <label className="text-sm font-semibold">Quantity:</label>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    disabled={quantity <= 1}
+                  >
+                    -
+                  </Button>
+                  <span className="w-12 text-center font-semibold">{quantity}</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() =>
+                      setQuantity(Math.min(selectedCondition.quantity, quantity + 1))
+                    }
+                    disabled={quantity >= selectedCondition.quantity}
+                  >
+                    +
+                  </Button>
+                </div>
+              </div>
+
+              <Button size="lg" className="w-full" onClick={handleAddToCart}>
+                <ShoppingCart className="h-5 w-5 mr-2" />
+                Add to Cart - ${(selectedCondition.price * quantity).toFixed(2)}
+              </Button>
+            </div>
+          )}
+
+          {(!selectedCondition || selectedCondition.quantity === 0) && (
+            <div className="space-y-4">
+              <Button size="lg" className="w-full" disabled>
+                <ShoppingCart className="h-5 w-5 mr-2" />
+                Out of Stock
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

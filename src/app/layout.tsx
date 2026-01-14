@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { ApolloProviderWrapper } from "@/components/providers/ApolloProvider";
@@ -40,6 +41,7 @@ export default function RootLayout({
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
+            <Toaster richColors />
           </AuthProvider>
         </ApolloProviderWrapper>
       </body>

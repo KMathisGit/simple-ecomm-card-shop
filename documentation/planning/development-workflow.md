@@ -110,12 +110,12 @@ src/
 
 **Tasks:**
 
-- [ ] Configure NextAuth.js with Google OAuth
-- [ ] Create auth API routes
+- [x] Configure NextAuth.js with Google OAuth
+- [x] Create auth API routes
 - [x] Setup Prisma adapter
 - [x] Create sign-in page
 - [ ] Implement middleware for protected routes
-- [ ] Add AuthProvider to root layout
+- [x] Add AuthProvider to root layout
 
 **Files to create:**
 
@@ -215,12 +215,12 @@ src/
 
 **Tasks:**
 
-- [ ] Create Zustand cart store
-- [ ] Implement CartButton with badge
-- [ ] Create CartDrawer/CartSheet
-- [ ] Add CartItem component
-- [ ] Implement cart persistence
-- [ ] Add cart summary
+- [x] Create Zustand cart store
+- [x] Implement CartButton with badge
+- [x] Create CartDrawer/CartSheet
+- [x] Add CartItem component
+- [x] Implement cart persistence
+- [x] Add cart summary
 
 **Files to create:**
 
@@ -234,33 +234,33 @@ src/
 
 **Tasks:**
 
-- [ ] Create checkout page (protected route)
-- [ ] Implement ShippingForm
-- [ ] Create OrderSummary component
-- [ ] Implement order creation mutation
+- [x] Create checkout page (protected route)
+- [x] Implement ShippingForm
+- [x] Create OrderSummary component
+- [x] Implement order creation mutation
 - [ ] Add inventory decrement logic
-- [ ] Create order success page
+- [x] Create order success page
 
 **Files to create:**
 
-- `src/app/(shop)/checkout/page.tsx`
+- `src/app/checkout/page.tsx`
 - `src/components/checkout/CheckoutForm.tsx`
 - `src/components/checkout/ShippingForm.tsx`
 - `src/components/checkout/OrderSummary.tsx`
-- `src/app/(shop)/checkout/success/page.tsx`
+- `src/app/checkout/success/page.tsx`
 
 ### 3.5 Order History
 
 **Tasks:**
 
-- [ ] Create orders list page
-- [ ] Implement order detail page
-- [ ] Add order status display
+- [x] Create orders list page
+- [x] Implement order detail page
+- [x] Add order status display
 
 **Files to create:**
 
-- `src/app/(shop)/orders/page.tsx`
-- `src/app/(shop)/orders/[id]/page.tsx`
+- `src/app/orders/page.tsx`
+- `src/app/orders/[id]/page.tsx`
 - `src/components/order/OrderCard.tsx`
 
 ## Phase 4: Admin Panel (Week 5)
@@ -317,11 +317,11 @@ src/
 
 **Tasks:**
 
-- [ ] Create Header component
-- [ ] Implement Navbar with search
-- [ ] Create Footer component
-- [ ] Add UserMenu component
-- [ ] Implement responsive design
+- [x] Create Header component
+- [x] Implement Navbar with search
+- [x] Create Footer component
+- [x] Add UserMenu component
+- [x] Implement responsive design
 
 **Files to create:**
 
