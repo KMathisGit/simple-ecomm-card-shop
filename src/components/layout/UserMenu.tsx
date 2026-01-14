@@ -27,7 +27,7 @@ export function UserMenu() {
   // Not logged in - show Sign In button
   if (!session) {
     return (
-      <Button variant="outline" size="sm" onClick={() => signIn()}>
+      <Button variant="outline" size="sm" onClick={() => signIn(undefined, { callbackUrl: location.href })}>
         Sign In
       </Button>
     );
