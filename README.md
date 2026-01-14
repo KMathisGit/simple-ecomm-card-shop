@@ -4,6 +4,8 @@ A modern, full-stack e-commerce web application for Pokémon cards. Built with N
 
 **Note**: This is a demonstration project. The checkout process is mocked and does not include real payment processing.
 
+Demo: [simple-ecomm-card-shop](https://simple-ecomm-card-shop.vercel.app/)
+
 ## 🎯 Project Purpose
 
 This project is an **educational demonstration** of building a complete e-commerce platform with modern web technologies. It showcases best practices for:
