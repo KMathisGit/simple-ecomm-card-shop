@@ -270,7 +270,7 @@ export default function CheckoutPage() {
           <div className="rounded-xl border bg-card p-6 sticky top-20">
             <h2 className="font-semibold mb-4">Order Summary</h2>
 
-            <div className="space-y-4 max-h-80 overflow-y-auto">
+            <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
               {items.map((item) => (
                 <div key={item.cardInventoryId} className="flex gap-3">
                   <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">

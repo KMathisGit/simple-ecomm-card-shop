@@ -11,6 +11,8 @@ interface AddToCartToastProps {
   condition: string;
   quantity: number;
   price: number;
+  cardSet: string;
+  cardNumber: string;
   onDismiss?: () => void;
 }
 
@@ -21,12 +23,14 @@ export function AddToCartToast({
   condition,
   quantity,
   price,
+  cardSet,
+  cardNumber,
   onDismiss,
 }: AddToCartToastProps) {
   return (
     <div className="flex items-center gap-4 w-full">
       {/* Card Image */}
-      <div className="w-16 h-20 relative rounded-lg overflow-hidden bg-muted flex-shrink-0">
+      <div className="w-16 h-20 relative rounded-lg overflow-hidden bg-muted">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -43,17 +47,19 @@ export function AddToCartToast({
       </div>
 
       {/* Content */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 w-full grow text-black">
         <div className="flex items-start justify-between gap-2 mb-1">
+          <div className="flex flex-col">
           <h4 className="font-semibold truncate">{name}</h4>
-          <ShoppingCart className="h-4 w-4 text-green-600 shrink-0" />
+          <h5>{`${cardSet} #${cardNumber}`}</h5>
+          </div>
+          <div className="flex items-center gap-2 mb-2">
+            <ConditionBadge condition={condition} />
+          </div>
         </div>
-        <div className="flex items-center gap-2 mb-2">
-          <ConditionBadge condition={condition} />
-          <span className="text-xs text-muted-foreground">x{quantity}</span>
-        </div>
-        <div className="text-sm font-semibold text-green-600">
-          ${(price * quantity).toFixed(2)}
+        <div className="flex gap-4 text-sm font-semibold text-green-600">
+            <span className="text-xs text-muted-foreground">x{quantity}</span>
+
         </div>
       </div>
 

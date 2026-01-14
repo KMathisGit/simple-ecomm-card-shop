@@ -55,6 +55,7 @@ export default function CardDetailPage() {
       quantity
     );
 
+
     // Show success toast
     toast.success(
       <AddToCartToast
@@ -64,6 +65,8 @@ export default function CardDetailPage() {
         condition={condition}
         quantity={quantity}
         price={inventoryItem.price}
+        cardSet={data.card.set}
+        cardNumber={data.card.cardNumber}
       />,
       {
         duration: 4000,

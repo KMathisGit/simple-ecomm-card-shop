@@ -3,13 +3,19 @@
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/stores/cart";
+import { useEffect, useState } from "react";
 
 interface CartButtonProps {
   onClick: () => void;
 }
 
 export function CartButton({ onClick }: CartButtonProps) {
+  const [mounted, setMounted] = useState(false);
   const totalItems = useCartStore((state) => state.totalItems());
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <Button
@@ -17,10 +23,10 @@ export function CartButton({ onClick }: CartButtonProps) {
       size="icon"
       className="relative"
       onClick={onClick}
-      aria-label={`Shopping cart with ${totalItems} items`}
+      aria-label={`Shopping cart with ${mounted ? totalItems : 0} items`}
     >
       <ShoppingCart className="h-5 w-5" />
-      {totalItems > 0 && (
+      {mounted && totalItems > 0 && (
         <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs font-medium flex items-center justify-center">
           {totalItems > 99 ? "99+" : totalItems}
         </span>

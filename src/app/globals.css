@@ -119,4 +119,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  [data-sonner-toast][data-styled=true] [data-content] {
+    flex-grow: 1;
+  }
 }
