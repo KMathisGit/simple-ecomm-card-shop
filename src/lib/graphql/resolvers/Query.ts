@@ -97,11 +97,11 @@ export const Query = {
           case "PRICE": {
             // Get minimum price from inventory items
             const aMinPrice = Math.min(
-              ...a.inventoryItems.map((item) => item.price),
+              ...a.inventoryItems.map((item) => item.price.toNumber()),
               Infinity
             );
             const bMinPrice = Math.min(
-              ...b.inventoryItems.map((item) => item.price),
+              ...b.inventoryItems.map((item) => item.price.toNumber()),
               Infinity
             );
             comparison = aMinPrice - bMinPrice;
