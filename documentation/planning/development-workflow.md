@@ -112,8 +112,8 @@ src/
 
 - [ ] Configure NextAuth.js with Google OAuth
 - [ ] Create auth API routes
-- [ ] Setup Prisma adapter
-- [ ] Create sign-in page
+- [x] Setup Prisma adapter
+- [x] Create sign-in page
 - [ ] Implement middleware for protected routes
 - [ ] Add AuthProvider to root layout
 
@@ -129,9 +129,9 @@ src/
 
 **Tasks:**
 
-- [ ] Create Prisma client singleton
-- [ ] Create seed script
-- [ ] Seed initial data (categories, sample cards)
+- [x] Create Prisma client singleton
+- [x] Create seed script
+- [x] Seed initial data (categories, sample cards)
 
 **Files to create:**
 
@@ -142,11 +142,11 @@ src/
 
 **Tasks:**
 
-- [ ] Setup Apollo Server
-- [ ] Define GraphQL schema
-- [ ] Implement resolvers (queries and mutations)
-- [ ] Create context with auth
-- [ ] Setup GraphQL API route
+- [x] Setup Apollo Server
+- [x] Define GraphQL schema
+- [x] Implement resolvers (queries and mutations)
+- [x] Create context with auth
+- [x] Setup GraphQL API route
 
 **Files to create:**
 
@@ -161,10 +161,10 @@ src/
 
 **Tasks:**
 
-- [ ] Configure Apollo Client
-- [ ] Create GraphQL queries
-- [ ] Create GraphQL mutations
-- [ ] Setup Apollo Provider
+- [x] Configure Apollo Client
+- [x] Create GraphQL queries
+- [x] Create GraphQL mutations
+- [x] Setup Apollo Provider
 
 **Files to create:**
 
@@ -179,11 +179,11 @@ src/
 
 **Tasks:**
 
-- [ ] Create Card components (CardItem, CardGrid)
-- [ ] Implement product listing page
-- [ ] Create product detail page with condition selector
-- [ ] Add price display logic
-- [ ] Implement image optimization
+- [x] Create Card components (CardItem, CardGrid)
+- [x] Implement product listing page
+- [x] Create product detail page with condition selector
+- [x] Add price display logic
+- [x] Implement image optimization
 
 **Files to create:**
 
@@ -198,11 +198,11 @@ src/
 
 **Tasks:**
 
-- [ ] Create SearchBar component
-- [ ] Implement SearchFilters component
-- [ ] Create search results page
-- [ ] Add filter logic (set, condition, price)
-- [ ] Implement search query handling
+- [x] Create SearchBar component
+- [x] Implement SearchFilters component
+- [x] Create search results page
+- [x] Add filter logic (set, condition, price)
+- [x] Implement search query handling
 
 **Files to create:**
 
