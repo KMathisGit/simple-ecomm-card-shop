@@ -121,7 +121,17 @@ export const Mutation = {
       return order;
     });
 
-    return result;
+    // Serialize DateTime fields to ISO strings
+    return {
+      ...result,
+      createdAt: result.createdAt.toISOString(),
+      updatedAt: result.updatedAt.toISOString(),
+      user: {
+        ...result.user,
+        createdAt: result.user.createdAt.toISOString(),
+        updatedAt: result.user.updatedAt.toISOString(),
+      },
+    };
   },
 
   // Admin card mutations
@@ -132,12 +142,19 @@ export const Mutation = {
   ) => {
     if (!user || user.role !== "ADMIN") throw new Error("Not authorized");
 
-    return prisma.card.create({
+    const card = await prisma.card.create({
       data: input,
       include: {
         inventoryItems: true,
       },
     });
+
+    // Serialize DateTime fields to ISO strings
+    return {
+      ...card,
+      createdAt: card.createdAt.toISOString(),
+      updatedAt: card.updatedAt.toISOString(),
+    };
   },
 
   updateCard: async (
@@ -147,13 +164,20 @@ export const Mutation = {
   ) => {
     if (!user || user.role !== "ADMIN") throw new Error("Not authorized");
 
-    return prisma.card.update({
+    const card = await prisma.card.update({
       where: { id },
       data: input,
       include: {
         inventoryItems: true,
       },
     });
+
+    // Serialize DateTime fields to ISO strings
+    return {
+      ...card,
+      createdAt: card.createdAt.toISOString(),
+      updatedAt: card.updatedAt.toISOString(),
+    };
   },
 
   deleteCard: async (
@@ -197,8 +221,9 @@ export const Mutation = {
       },
     });
 
+    let result;
     if (existing) {
-      return prisma.cardInventory.update({
+      result = await prisma.cardInventory.update({
         where: { id: existing.id },
         data: {
           price: input.price,
@@ -209,7 +234,7 @@ export const Mutation = {
         },
       });
     } else {
-      return prisma.cardInventory.create({
+      result = await prisma.cardInventory.create({
         data: {
           cardId,
           condition: input.condition,
@@ -221,6 +246,18 @@ export const Mutation = {
         },
       });
     }
+
+    // Serialize DateTime fields to ISO strings
+    return {
+      ...result,
+      createdAt: result.createdAt.toISOString(),
+      updatedAt: result.updatedAt.toISOString(),
+      card: {
+        ...result.card,
+        createdAt: result.card.createdAt.toISOString(),
+        updatedAt: result.card.updatedAt.toISOString(),
+      },
+    };
   },
 
   deleteInventory: async (

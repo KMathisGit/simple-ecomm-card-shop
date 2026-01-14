@@ -138,16 +138,33 @@ export const Query = {
     }
 
     // Apply pagination after sorting
-    return sortedCards.slice(offset, offset + limit);
+    const paginatedCards = sortedCards.slice(offset, offset + limit);
+
+    // Serialize DateTime fields to ISO strings
+    return paginatedCards.map((card) => ({
+      ...card,
+      createdAt: card.createdAt.toISOString(),
+      updatedAt: card.updatedAt.toISOString(),
+    }));
+
   },
 
   card: async (_: any, { id }: { id: string }, { prisma }: GraphQLContext) => {
-    return prisma.card.findUnique({
+    const card = await prisma.card.findUnique({
       where: { id },
       include: {
         inventoryItems: true,
       },
     });
+
+    if (!card) return null;
+
+    // Serialize DateTime fields to ISO strings
+    return {
+      ...card,
+      createdAt: card.createdAt.toISOString(),
+      updatedAt: card.updatedAt.toISOString(),
+    };
   },
 
   cardInventory: async (
@@ -155,20 +172,32 @@ export const Query = {
     { cardId }: { cardId: string },
     { prisma }: GraphQLContext
   ) => {
-    return prisma.cardInventory.findMany({
+    const inventories = await prisma.cardInventory.findMany({
       where: { cardId },
       include: {
         card: true,
       },
       orderBy: { price: "asc" },
     });
+
+    // Serialize DateTime fields to ISO strings
+    return inventories.map((inventory) => ({
+      ...inventory,
+      createdAt: inventory.createdAt.toISOString(),
+      updatedAt: inventory.updatedAt.toISOString(),
+      card: {
+        ...inventory.card,
+        createdAt: inventory.card.createdAt.toISOString(),
+        updatedAt: inventory.card.updatedAt.toISOString(),
+      },
+    }));
   },
 
   // User queries
   me: async (_: any, __: any, { user, prisma }: GraphQLContext) => {
     if (!user) return null;
 
-    return prisma.user.findUnique({
+    const userData = await prisma.user.findUnique({
       where: { id: user.id },
       include: {
         orders: {
@@ -187,6 +216,20 @@ export const Query = {
         },
       },
     });
+
+    if (!userData) return null;
+
+    // Serialize DateTime fields to ISO strings
+    return {
+      ...userData,
+      createdAt: userData.createdAt.toISOString(),
+      updatedAt: userData.updatedAt.toISOString(),
+      orders: userData.orders.map((order) => ({
+        ...order,
+        createdAt: order.createdAt.toISOString(),
+        updatedAt: order.updatedAt.toISOString(),
+      })),
+    };
   },
 
   // Order queries
@@ -197,7 +240,7 @@ export const Query = {
   ) => {
     if (!user) throw new Error("Not authenticated");
 
-    return prisma.order.findMany({
+    const orders = await prisma.order.findMany({
       where: { userId: user.id },
       include: {
         orderItems: {
@@ -214,6 +257,13 @@ export const Query = {
       skip: offset,
       orderBy: { createdAt: "desc" },
     });
+
+    // Serialize DateTime fields to ISO strings
+    return orders.map((order) => ({
+      ...order,
+      createdAt: order.createdAt.toISOString(),
+      updatedAt: order.updatedAt.toISOString(),
+    }));
   },
 
   order: async (
@@ -240,7 +290,12 @@ export const Query = {
 
     if (!order || order.userId !== user.id) return null;
 
-    return order;
+    // Serialize DateTime fields to ISO strings
+    return {
+      ...order,
+      createdAt: order.createdAt.toISOString(),
+      updatedAt: order.updatedAt.toISOString(),
+    };
   },
 
   // Admin queries
@@ -251,11 +306,18 @@ export const Query = {
   ) => {
     if (!user || user.role !== "ADMIN") throw new Error("Not authorized");
 
-    return prisma.user.findMany({
+    const users = await prisma.user.findMany({
       take: limit,
       skip: offset,
       orderBy: { createdAt: "desc" },
     });
+
+    // Serialize DateTime fields to ISO strings
+    return users.map((u) => ({
+      ...u,
+      createdAt: u.createdAt.toISOString(),
+      updatedAt: u.updatedAt.toISOString(),
+    }));
   },
 
   allOrders: async (
@@ -265,7 +327,7 @@ export const Query = {
   ) => {
     if (!user || user.role !== "ADMIN") throw new Error("Not authorized");
 
-    return prisma.order.findMany({
+    const orders = await prisma.order.findMany({
       include: {
         user: true,
         orderItems: {
@@ -282,5 +344,17 @@ export const Query = {
       skip: offset,
       orderBy: { createdAt: "desc" },
     });
+
+    // Serialize DateTime fields to ISO strings
+    return orders.map((order) => ({
+      ...order,
+      createdAt: order.createdAt.toISOString(),
+      updatedAt: order.updatedAt.toISOString(),
+      user: {
+        ...order.user,
+        createdAt: order.user.createdAt.toISOString(),
+        updatedAt: order.user.updatedAt.toISOString(),
+      },
+    }));
   },
 };

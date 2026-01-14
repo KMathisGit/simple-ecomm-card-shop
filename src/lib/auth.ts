@@ -18,17 +18,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: "/auth/signin",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
+      // On initial sign-in, user object is available
       if (user) {
-        token.role = "CUSTOMER";
-        // Store user in database on first sign-in (handled by adapter)
+        token.id = user.id;
+        token.role = (user as any).role || "CUSTOMER";
       }
+
+      // If we have an id but need to refresh role from database
+      if (token.id && !token.role) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { role: true },
+        });
+        if (dbUser) {
+          token.role = dbUser.role;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.sub!;
-        session.user.role = token.role as string;
+        // Use token.id (database user ID) instead of token.sub (which may be provider ID)
+        session.user.id = (token.id as string) || token.sub!;
+        session.user.role = (token.role as string) || "CUSTOMER";
       }
       return session;
     },
