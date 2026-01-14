@@ -1,2 +1,3 @@
 // Landing page components barrel export
-export { SetCard } from "./SetCard";
+export { SetCardDefault } from "./SetCardDefault";
+export { FeaturedSetCard } from "./FeaturedSetCard";

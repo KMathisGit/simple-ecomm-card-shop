@@ -5,6 +5,7 @@ import { AuthProvider } from "@/components/providers/AuthProvider";
 import { ApolloProviderWrapper } from "@/components/providers/ApolloProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { DisclaimerBanner } from "@/components/layout/DisclaimerBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
         <ApolloProviderWrapper>
           <AuthProvider>
             <div className="relative flex min-h-screen flex-col">
+              <DisclaimerBanner />
               <Navbar />
               <main className="flex-1">{children}</main>
               <Footer />

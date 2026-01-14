@@ -29,7 +29,7 @@ export function Navbar() {
   const cartCount = mounted ? totalItems() : 0;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur">
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-semibold">
@@ -46,6 +46,11 @@ export function Navbar() {
 
         {/* Desktop Actions - Hidden on mobile */}
         <div className="hidden md:flex items-center gap-4">
+          {/* Shop Link */}
+          <Link href="/shop" className="text-sm font-medium hover:text-primary transition-colors">
+            Shop
+          </Link>
+
           {/* Cart Button */}
           <Button variant="outline" size="icon" asChild className="relative">
             <Link href="/cart">
@@ -113,6 +118,13 @@ export function Navbar() {
                     className="rounded-md px-3 py-2 text-sm font-medium hover:bg-muted transition-colors"
                   >
                     Home
+                  </Link>
+                  <Link
+                    href="/shop"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="rounded-md px-3 py-2 text-sm font-medium hover:bg-muted transition-colors"
+                  >
+                    Shop
                   </Link>
                   <Link
                     href="/cart"

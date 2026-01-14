@@ -1,267 +1,245 @@
+/**
+ * Landing Page: Modern & Clean
+ *
+ * Design philosophy:
+ * - Minimalist approach with generous whitespace
+ * - Clean typography hierarchy
+ * - Subtle animations and hover states
+ * - Professional, sophisticated feel
+ */
+
 "use client";
 
-import { useState } from "react";
-import { useQuery } from "@apollo/client/react";
-import { GET_CARDS } from "@/lib/graphql";
-import { GetCardsResponse } from "@/types/graphql";
-import { CardGrid } from "@/components/product/CardGrid";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { cardSets } from "@/lib/data/sets";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { CardCondition } from "@prisma/client";
-import { Search, Filter } from "lucide-react";
+import { SetCardDefault, FeaturedSetCard } from "@/components/landing";
 
-export default function ShopPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedSet, setSelectedSet] = useState<string>("");
-  const [selectedCondition, setSelectedCondition] = useState<
-    CardCondition | ""
-  >("");
-  const [minPrice, setMinPrice] = useState<string>("");
-  const [maxPrice, setMaxPrice] = useState<string>("");
-  const [showFilters, setShowFilters] = useState(false);
-  const [appliedFilters, setAppliedFilters] = useState({
-    name: "",
-    set: "",
-    condition: "" as CardCondition | "",
-    minPrice: "",
-    maxPrice: "",
-  });
+export default function HomePage() {
+  const [selectedSet, setSelectedSet] = useState(cardSets[0]);
 
-  const { data, loading, error, fetchMore, refetch } =
-    useQuery<GetCardsResponse>(GET_CARDS, {
-      variables: {
-        filter: {
-          name: searchTerm || appliedFilters.name || undefined,
-          set: appliedFilters.set || undefined,
-          condition: appliedFilters.condition || undefined,
-          minPrice: appliedFilters.minPrice
-            ? parseFloat(appliedFilters.minPrice)
-            : undefined,
-          maxPrice: appliedFilters.maxPrice
-            ? parseFloat(appliedFilters.maxPrice)
-            : undefined,
-          inStock: true,
-        },
-        limit: 20,
-        offset: 0,
-      },
-    });
-
-  const applyFilters = () => {
-    setAppliedFilters({
-      name: searchTerm,
-      set: selectedSet,
-      condition: selectedCondition,
-      minPrice,
-      maxPrice,
-    });
-    refetch();
-  };
-  console.log("ShopPage data:", data);
-
-  const handleLoadMore = () => {
-    console.log("loading more...", data?.cards);
-    fetchMore({
-      variables: {
-        offset: data?.cards?.length || 0,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        return {
-          ...prev,
-          cards: [...prev.cards, ...fetchMoreResult.cards],
-        };
-      },
-    });
-  };
-
-  if (error) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">
-            Error Loading Cards
-          </h1>
-          <p className="text-muted-foreground">{error.message}</p>
-        </div>
-      </div>
-    );
-  }
-
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * cardSets.length);
+    setSelectedSet(cardSets[randomIndex]);
+  }, []);
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Pokémon Card Shop</h1>
-        <p className="text-muted-foreground">
-          Discover and collect rare Pokémon cards with condition-based pricing
-        </p>
-      </div>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-linear-to-b from-muted/50 to-background">
+        
 
-      {/* Search and Filters */}
-      <div className="mb-6 space-y-4">
-        <div className="flex gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input
-              placeholder="Search cards..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+        <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border bg-background px-4 py-1.5 text-sm mb-8">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              Now shipping worldwide
+            </div>
+
+            {/* Main headline */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+              Collect the classics.
+              <br />
+              <span className="text-muted-foreground">Own the originals.</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+              Discover the Pokemon trading cards that stood the test of time.
+              Every card is inspected, graded, and verified by the experts.
+            </p>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/shop">
+                <Button size="lg" className="text-base px-8">
+                  Browse All Cards
+                </Button>
+              </Link>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-base px-8"
+                onClick={() => {
+                  document.getElementById('sets')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                View Sets
+              </Button>
+            </div>
           </div>
-          <Button
-            variant="outline"
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2"
-          >
-            <Filter className="h-4 w-4" />
-            Filters
-          </Button>
         </div>
 
-        {showFilters && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border rounded-lg bg-muted/50">
-            <Select value={selectedSet} onValueChange={setSelectedSet}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Sets" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Base Set">Base Set</SelectItem>
-                <SelectItem value="Jungle">Jungle</SelectItem>
-                <SelectItem value="Fossil">Fossil</SelectItem>
-                <SelectItem value="Base Set 2">Base Set 2</SelectItem>
-                <SelectItem value="Team Rocket">Team Rocket</SelectItem>
-              </SelectContent>
-            </Select>
+        {/* Hero Marquee section */}
+        <div className="relative w-full overflow-hidden py-8">
+          {/* Left fade overlay */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
+          {/* Right fade overlay */}
+          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-linear-to-l from-white to-transparent z-10 pointer-events-none" />
 
-            <Select
-              value={selectedCondition}
-              onValueChange={(value) =>
-                setSelectedCondition((value as CardCondition) || "")
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="All Conditions" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="MINT">Mint</SelectItem>
-                <SelectItem value="NEAR_MINT">Near Mint</SelectItem>
-                <SelectItem value="EXCELLENT">Excellent</SelectItem>
-                <SelectItem value="GOOD">Good</SelectItem>
-                <SelectItem value="LIGHT_PLAYED">Light Played</SelectItem>
-                <SelectItem value="PLAYED">Played</SelectItem>
-                <SelectItem value="POOR">Poor</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Input
-              type="number"
-              placeholder="Min Price"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              min="0"
-              step="0.01"
+          <div className="flex animate-marquee" style={{ width: 'max-content' }}>
+            {/* Three copies of the image for seamless loop on ultra-wide screens */}
+            <img
+              src="/hero-carousel.webp"
+              alt="Pokemon cards showcase"
+              className="h-48 w-auto max-w-none shrink-0"
             />
-
-            <Input
-              type="number"
-              placeholder="Max Price"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              min="0"
-              step="0.01"
+            <img
+              src="/hero-carousel.webp"
+              alt=""
+              aria-hidden="true"
+              className="h-48 w-auto max-w-none shrink-0"
+            />
+            <img
+              src="/hero-carousel.webp"
+              alt=""
+              aria-hidden="true"
+              className="h-48 w-auto max-w-none shrink-0"
             />
           </div>
-        )}
-
-        {showFilters && (
-          <div className="flex gap-2">
-            <Button onClick={applyFilters}>Apply Filters</Button>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedSet("");
-                setSelectedCondition("");
-                setMinPrice("");
-                setMaxPrice("");
-                setAppliedFilters({
-                  name: "",
-                  set: "",
-                  condition: "",
-                  minPrice: "",
-                  maxPrice: "",
-                });
-                refetch();
-              }}
-            >
-              Clear Filters
-            </Button>
-          </div>
-        )}
-
-        {(appliedFilters.name ||
-          appliedFilters.set ||
-          appliedFilters.condition ||
-          appliedFilters.minPrice ||
-          appliedFilters.maxPrice) && (
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">
-              Active filters:
-              {appliedFilters.name && ` "${appliedFilters.name}"`}
-              {appliedFilters.set && ` Set: ${appliedFilters.set}`}
-              {appliedFilters.condition &&
-                ` Condition: ${appliedFilters.condition.replace("_", " ")}`}
-              {appliedFilters.minPrice && ` Min: $${appliedFilters.minPrice}`}
-              {appliedFilters.maxPrice && ` Max: $${appliedFilters.maxPrice}`}
-            </span>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedSet("");
-                setSelectedCondition("");
-                setMinPrice("");
-                setMaxPrice("");
-                setAppliedFilters({
-                  name: "",
-                  set: "",
-                  condition: "",
-                  minPrice: "",
-                  maxPrice: "",
-                });
-                refetch();
-              }}
-            >
-              Clear all
-            </Button>
-          </div>
-        )}
-      </div>
-
-      {/* Card Grid */}
-      <CardGrid
-        cards={data?.cards || []}
-        loading={loading}
-        emptyMessage="No cards found matching your criteria"
-      />
-
-      {/* Load More */}
-      {data?.cards && data.cards.length >= 20 && (
-        <div className="text-center mt-8">
-          <Button onClick={handleLoadMore} disabled={loading}>
-            {loading ? "Loading..." : "Load More Cards"}
-          </Button>
         </div>
-      )}
+
+        {/* Marquee animation styles */}
+        <style jsx>{`
+          @keyframes marquee {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-33.333%);
+            }
+          }
+          .animate-marquee {
+            animation: marquee 40s linear infinite;
+          }
+        `}</style>
+      </section>
+
+      {/* Stats Section */}
+      <section className="border-y bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x">
+            {[
+              { value: "5", label: "Original Sets" },
+              { value: "441+", label: "Unique Cards" },
+              { value: "10,000+", label: "Cards in Stock" },
+              { value: "100%", label: "Expert Graded & Verified" },
+            ].map((stat) => (
+              <div key={stat.label} className="py-8 md:py-12 text-center">
+                <div className="text-3xl md:text-4xl font-bold mb-1">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sets Section */}
+      <section id="sets" className="py-20 md:py-32">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Shop by Set
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Explore our collection of classic Pokemon card sets. Each set offers
+              unique artwork, rare finds, and nostalgic favorites.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cardSets.map((set) => (
+              <SetCardDefault key={set.id} set={set} showAllPacks />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Set */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Featured Set
+          </h2>
+          <FeaturedSetCard set={selectedSet} />
+        </div>
+      </section>
+
+      {/* Trust Section */}
+      <section className="py-20 md:py-32">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Trusted by Collectors
+            </h2>
+            <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
+              We take authenticity seriously. Every card in our inventory is
+              carefully inspected and graded by our expert team.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Verified Authentic",
+                  description: "Every card is inspected for authenticity before listing.",
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "Condition Graded",
+                  description: "Clear condition ratings from Mint to Poor on every card.",
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "Secure Shipping",
+                  description: "Protected packaging ensures your cards arrive safely.",
+                  icon: (
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                    </svg>
+                  ),
+                },
+              ].map((feature) => (
+                <div key={feature.title} className="text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4">
+                    {feature.icon}
+                  </div>
+                  <h3 className="font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Start Your Collection Today
+          </h2>
+          <p className="text-lg opacity-90 mb-8 max-w-xl mx-auto">
+            Join thousands of collectors who trust us for authentic Pokemon cards.
+          </p>
+          <Link href="/shop">
+            <Button size="lg" variant="secondary" className="text-base px-8">
+              Browse All Cards
+            </Button>
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

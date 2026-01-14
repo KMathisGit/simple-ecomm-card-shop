@@ -10,12 +10,10 @@
 
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cardSets } from "@/lib/data/sets";
 import { Button } from "@/components/ui/button";
-import { SetCard } from "@/components/landing";
+import { SetCardDefault, FeaturedSetCard } from "@/components/landing";
 
 export default function LandingVariation1() {
   const [selectedSet, setSelectedSet] = useState(cardSets[0]);
@@ -143,7 +141,7 @@ export default function LandingVariation1() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {cardSets.map((set) => (
-              <SetCard key={set.id} set={set} variant="default" showAllPacks />
+              <SetCardDefault key={set.id} set={set} showAllPacks />
             ))}
           </div>
         </div>
@@ -155,7 +153,7 @@ export default function LandingVariation1() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Featured Set
           </h2>
-          <SetCard set={selectedSet} variant="featured" />
+          <FeaturedSetCard set={selectedSet} />
         </div>
       </section>
 

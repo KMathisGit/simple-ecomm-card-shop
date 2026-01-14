@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_CARDS = gql`
-  query GetCards($filter: CardFilter, $limit: Int, $offset: Int) {
-    cards(filter: $filter, limit: $limit, offset: $offset) {
+  query GetCards($filter: CardFilter, $sort: SortInput, $limit: Int, $offset: Int) {
+    cards(filter: $filter, sort: $sort, limit: $limit, offset: $offset) {
       id
       name
       imageUrl

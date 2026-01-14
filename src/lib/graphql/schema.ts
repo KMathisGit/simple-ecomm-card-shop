@@ -17,6 +17,19 @@ export const typeDefs = gql`
     POOR
   }
 
+  enum SortField {
+    NAME
+    CARD_NUMBER
+    PRICE
+    RARITY
+    SET
+  }
+
+  enum SortOrder {
+    ASC
+    DESC
+  }
+
   # Types
   type User {
     id: ID!
@@ -84,6 +97,11 @@ export const typeDefs = gql`
     inStock: Boolean
   }
 
+  input SortInput {
+    field: SortField!
+    order: SortOrder!
+  }
+
   input CreateOrderInput {
     items: [OrderItemInput!]!
   }
@@ -120,7 +138,7 @@ export const typeDefs = gql`
   # Queries
   type Query {
     # Card queries
-    cards(filter: CardFilter, limit: Int, offset: Int): [Card!]!
+    cards(filter: CardFilter, sort: SortInput, limit: Int, offset: Int): [Card!]!
     card(id: ID!): Card
     cardInventory(cardId: ID!): [CardInventory!]!
 

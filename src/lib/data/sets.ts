@@ -53,7 +53,7 @@ export const cardSets: CardSet[] = [
     description: "Explore the wild side of Pokemon with jungle-dwelling creatures. Introduces powerful Eeveelutions and more.",
     releaseYear: 1999,
     totalCards: 64,
-    accentColor: "#FFF",
+    accentColor: "#FFFFFF",
     gradientFrom: "#6fa949",
     gradientTo: "#465c25",
     boosterPacks: [
@@ -70,9 +70,9 @@ export const cardSets: CardSet[] = [
     description: "Unearth prehistoric Pokemon and legendary birds. Features ancient creatures revived from fossils.",
     releaseYear: 1999,
     totalCards: 62,
-    accentColor: "#8D6E63",
-    gradientFrom: "#B79891",
-    gradientTo: "#94716B",
+    accentColor: "#FFFFFF",
+    gradientFrom: "#d5b591",
+    gradientTo: "#ac8d6c",
     boosterPacks: [
       { name: "Aerodactyl Pack", image: "/pack-assets/Fossil (FO)/Fossil_Booster_Aerodactyl.webp" },
       { name: "Lapras Pack", image: "/pack-assets/Fossil (FO)/Fossil_Booster_Lapras.webp" },
@@ -87,9 +87,9 @@ export const cardSets: CardSet[] = [
     description: "A reprint compilation featuring the best cards from Base Set and Jungle with updated artwork.",
     releaseYear: 2000,
     totalCards: 130,
-    accentColor: "#1E88E5",
-    gradientFrom: "#667eea",
-    gradientTo: "#764ba2",
+    accentColor: "#FFFFFF",
+    gradientFrom: "#8e3794", 
+    gradientTo: "#501654",
     boosterPacks: [
       { name: "Mewtwo Pack", image: "/pack-assets/Base Set 2 (B2)/Base_Set_2_Booster_Mewtwo.webp" },
       { name: "Gyarados Pack", image: "/pack-assets/Base Set 2 (B2)/Base_Set_2_Booster_Gyarados.webp" },
@@ -105,7 +105,7 @@ export const cardSets: CardSet[] = [
     description: "Enter the dark side with Team Rocket's sinister Pokemon. Features Dark Pokemon variants and villainous trainers.",
     releaseYear: 2000,
     totalCards: 83,
-    accentColor: "#5E35B1",
+    accentColor: "#FFFFFF",
     gradientFrom: "#434343",
     gradientTo: "#000000",
     boosterPacks: [
