@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession, signIn, signOut } from "next-auth/react";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { User, LogOut, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,9 @@ import {
 
 export function UserMenu() {
   const { data: session, status } = useSession();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const callbackUrl = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "");
 
   // Loading state
   if (status === "loading") {
@@ -27,7 +31,11 @@ export function UserMenu() {
   // Not logged in - show Sign In button
   if (!session) {
     return (
-      <Button variant="outline" size="sm" onClick={() => signIn(undefined, { callbackUrl: location.href })}>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => signIn("google", { callbackUrl: callbackUrl || "/" })}
+      >
         Sign In
       </Button>
     );
